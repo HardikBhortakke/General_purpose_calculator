@@ -2,6 +2,7 @@
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 #include <string.h>
+//#include<cmath.h>
 
 LiquidCrystal_I2C lcd(0x27,16,2);  // set the LCD address to 0x20 for a 16 chars and 2 line display
 
@@ -14,15 +15,15 @@ char keys1[ROWS][COLS] = {
   {'1','2','3','A'},
   {'4','5','6','+'},
   {'7','8','9','-'},
-  {'*','0','^','='}
+  {'*','0','.','='}
 };
 char keys2[ROWS][COLS] = {
   {'1','2','3','A'},
-  {'4','5','6','B'},
+  {'4','5','6','%'},
   {'7','8','9','/'},
-  {'*','0','#','D'}
+  {'*','0','^','D'}
 };
-byte rowPins[ROWS] = {9, 8, 7, 6}; //connect to the row pinouts of the keypad
+byte rowPins[ROWS] = {9, 10, 7, 6}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {5, 4, 3, 2}; //connect to the column pinouts of the keypad
 //Create an object of keypad
 Keypad keypad1 = Keypad( makeKeymap(keys1), rowPins, colPins, ROWS, COLS );
@@ -34,7 +35,7 @@ void setup(){
 }
 String str1 = "";
 String str2 = ""; 
-int result= 0,a = 0,b = 0;
+double result= 0,a = 0,b = 0;
 int flag = 0;
 char op = '.';
 
@@ -116,10 +117,10 @@ void loop(){
     }
     else if(key == '='){
       lcd.clear();
-      a = str1.toInt();
+      a = str1.toDouble();
       Serial.println("a:");
       Serial.println(a);
-      b = str2.toInt();
+      b = str2.toDouble();
       Serial.println("b:");
       Serial.println(b);
       Serial.println(op);
@@ -133,9 +134,9 @@ void loop(){
       }else if(op=='*'){
         result = a*b;
       }else if (op=='%'){
-        result = a%b;
+        result = a - (int)(a/b)*b;
       }else if(op=='^'){
-        result = pow(a,b)+1;
+        result = pow(a,b);
       }
       lcd.print(result);
       flag = 0;
