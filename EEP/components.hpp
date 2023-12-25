@@ -5,6 +5,7 @@
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 #include <string.h>
+#include <math.h>
 
 unsigned long previousMillis = 0UL;
 unsigned long interval = 1000UL;
