@@ -34,6 +34,7 @@ Keypad keypad2 = Keypad( makeKeymap(keys2), rowPins, colPins, ROWS, COLS );
 int flag = 0;
 int mode = 0;
 int advanced_mode = 0;
+int reset = 1;
 
 char extra_key(char in)
 {
@@ -59,28 +60,55 @@ char extra_key(char in)
 
 void display2layermenu(String message1, String message2)
 {
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(message1);
-  lcd.setCursor(0, 1);
-  lcd.print(message2);
-  delay(1000);
+  if(reset == 0)
+  {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(message1);
+    lcd.setCursor(0, 1);
+    lcd.print(message2);
+    delay(1000);
+  }
 };
 
 void displayresult(String result1, double result2)
 {
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(result1);
-  lcd.setCursor(0, 1);
-  lcd.print(result2);
-  while(true)
-  { 
-    char key = keypad1.getKey();  // Read the key
-    if(key == 'A' || key == '+' || key == '*' || key == '-' || key == '=')
-    {
-      lcd.clear();
-      break;
+  if(reset == 0)
+  {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(result1);
+    lcd.setCursor(0, 1);
+    lcd.print(result2);
+    while(true)
+    { 
+      char key = keypad1.getKey();  // Read the key
+      if(key == 'A' || key == '=')
+      {
+        lcd.clear();
+        break;
+      }
+      else if(key == '-')
+      {
+        lcd.clear();
+        reset = 1;
+        mode = 0;
+        break;
+      }
+      else if(key == '+')
+      {
+        lcd.clear();
+        mode = 0;
+        reset = 2;
+        break;
+      }
+      else if(key == "*")
+      {
+        lcd.clear();
+        reset = 2;
+        advanced_mode = 0;
+        break;
+      }
     }
   } 
 };
@@ -89,49 +117,74 @@ double GET_NUMBER_DECIMAL(String message)
 {
   String numstr = "";
   double number = 0;
+  
   lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(message);
-
-  while(true)
+  
+  if (reset == 0)
   {
-    char key = keypad1.getKey();  // Read the key
+    lcd.setCursor(0, 0);
+    lcd.print(message);
 
-    if (key)
+    while(true)
     {
-      if(key == 'A' || key == '+' || key == '*' || key == '-')
-      {
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print(message);
-        flag = 0;
-        numstr = "";
-        number = 0;
-      }
-      else if(key == '=')
-      {
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print(message);
+      char key = keypad1.getKey();  // Read the key
 
-        number = numstr.toDouble();
-        lcd.setCursor(0, 1);
-        lcd.print(number);
-        delay(1000);
-        break;
-      }
-      else
+      if (key)
       {
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print(message);
-        lcd.setCursor(0, 1);
-        numstr = numstr + key;
-        lcd.print(numstr);
-      } 
+        if(key == 'A')
+        {
+          lcd.clear();
+          lcd.setCursor(0, 0);
+          lcd.print(message);
+          flag = 0;
+          numstr = "";
+          number = 0;
+        }
+        else if(key == '-')
+        {
+          lcd.clear();
+          reset = 1;
+          mode = 0;
+          break;
+        }
+        else if(key == '+')
+        {
+          lcd.clear();
+          mode = 0;
+          reset = 2;
+          break;
+        }
+        else if(key == "*")
+        {
+          lcd.clear();
+          reset = 2;
+          advanced_mode = 0;
+          break;
+        }
+        else if(key == '=')
+        {
+          lcd.clear();
+          lcd.setCursor(0, 0);
+          lcd.print(message);
+
+          number = numstr.toDouble();
+          lcd.setCursor(0, 1);
+          lcd.print(number);
+          delay(1000);
+          break;
+        }
+        else
+        {
+          lcd.clear();
+          lcd.setCursor(0, 0);
+          lcd.print(message);
+          lcd.setCursor(0, 1);
+          numstr = numstr + key;
+          lcd.print(numstr);
+        } 
+      }
     }
   }
-
   return number; 
 };
 

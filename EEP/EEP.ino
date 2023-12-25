@@ -1,6 +1,7 @@
 #include "components.hpp"
 #include "AdvanceMode.hpp"
 #include "BasicMode.hpp"
+#include "functions.hpp"
 
 void setup() 
 {
@@ -15,13 +16,14 @@ void loop()
   // put your main code here, to run repeatedly:
   if (mode == 0)
   {
-    display2layermenu("GPC INITIALIZED", "     HI :)     ");
-
+    if (reset == 1)
+    {
+      display2layermenu("GPC INITIALIZED", "     HI :)     ");
+    }
     display2layermenu("MODES:", "");
-
     display2layermenu("1: Basic", "2: Advanced");
-
     mode = round(GET_NUMBER_DECIMAL("Enter Mode: "));
+    reset = 0;
 
   }
 
@@ -33,4 +35,5 @@ void loop()
   {
     adv_mode();
   }
+
 }
