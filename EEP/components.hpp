@@ -85,7 +85,7 @@ void displayresult(String result1, double result2)
   } 
 };
 
-int GET_NUMBER_DECIMAL(String message)
+double GET_NUMBER_DECIMAL(String message)
 {
   String numstr = "";
   double number = 0;
@@ -122,7 +122,10 @@ int GET_NUMBER_DECIMAL(String message)
       }
       else
       {
-        lcd.setCursor(1, 0);
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print(message);
+        lcd.setCursor(0, 1);
         numstr = numstr + key;
         lcd.print(numstr);
       } 
