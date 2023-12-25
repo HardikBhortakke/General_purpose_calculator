@@ -1,0 +1,50 @@
+#ifndef __amortizedloan_H
+#define __amortizedloan_H
+
+#include "components.hpp"
+
+void amortized_loan()
+{
+  int period_format = 0, period = 0, compounding_period = 0;
+  double principal = 0, rate = 0;
+  double interest = 0, total = 0, periodicpayment = 0;
+
+  display2layermenu("Amortized Loan", "");
+
+  display2layermenu("1: Years", "2: Months");
+
+  period_format = round(GET_NUMBER_DECIMAL("Enter Period Format"));
+
+  principal = GET_NUMBER_DECIMAL("Principal");
+
+  rate = GET_NUMBER_DECIMAL("Interest Rate per annum");
+
+  period = round(GET_NUMBER_DECIMAL("Period"));
+
+  compounding_period = round(GET_NUMBER_DECIMAL("Compounding Period"));
+
+  if(period_format == 1)
+  {
+    period = period * compounding_period;
+  }
+  else if(period_format == 2)
+  {
+    rate = rate / 12;
+  }
+
+  rate = rate / compounding_period;
+
+  total = principal * (rate / (1 - pow((1 + rate), period)));
+
+  interest = total - principal;
+
+  periodicpayment = total / period;
+
+  displayresult("Periodic Payment", periodicpayment);
+
+  displayresult("Interest", interest);
+
+  displayresult("Total", total);
+};
+
+#endif

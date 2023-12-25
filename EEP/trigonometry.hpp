@@ -3,6 +3,32 @@
 
 #include "components.hpp"
 
+void degreetoradian()
+{
+  double angle = 0, result = 0;
+  String namestr = "Degree to Radian";
+
+  display2layermenu(namestr, "");
+
+  angle = GET_NUMBER_DECIMAL("Enter Angle");
+  result = radians(angle);
+
+  displayresult(namestr, result);
+};
+
+void radiantodegree()
+{
+  double angle = 0, result = 0;
+  String namestr = "Radian to Degree";
+
+  display2layermenu(namestr, "");
+
+  angle = GET_NUMBER_DECIMAL("Enter Angle");
+  result = degrees(angle);
+
+  displayresult(namestr, result);
+};
+
 void sine_degrees()
 {
   double angle = 0, result = 0;
