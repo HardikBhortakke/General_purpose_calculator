@@ -9,7 +9,7 @@ void mutual_fund()
   double principal = 0, rate = 0;
   double interest = 0, total = 0, periodicpayment = 0;
 
-  display2layermenu("Mutual_Fund", "");
+  display2layermenu("SIP & Mutual Fund", "");
 
   display2layermenu("1: Years", "2: Months");
 
@@ -41,11 +41,14 @@ void mutual_fund()
   else if(period_format == 2)
   {
     rate = rate / 12;
+    period = period / 12;
   }
 
   rate = rate / compounding_period;
 
   total = (periodicpayment * ((pow((1 + rate), period) - 1) / rate)) + (principal * pow((1 + rate), period));
+
+  principal = principal + (periodicpayment * period);
 
   interest = total - principal;
 

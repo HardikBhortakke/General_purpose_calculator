@@ -15,5 +15,6 @@
 #include "continuous_presentvalue.hpp"
 #include "amortizedloan.hpp"
 #include "mutualfund.hpp"
+#include "incometax.hpp"
 
 #endif

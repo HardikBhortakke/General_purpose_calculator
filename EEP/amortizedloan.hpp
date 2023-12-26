@@ -43,11 +43,11 @@ void amortized_loan()
 
   rate = rate / compounding_period;
 
-  total = principal * (rate / (1 - pow((1 + rate), period)));
+  periodicpayment = principal * (rate / (1 - pow((1 + rate), -period)));
+
+  total = periodicpayment * period;
 
   interest = total - principal;
-
-  periodicpayment = total / period;
 
   displayresult("Periodic Payment", periodicpayment);
 

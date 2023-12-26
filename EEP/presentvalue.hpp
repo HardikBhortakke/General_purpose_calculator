@@ -8,7 +8,7 @@ void present_value()
   int rate_format = 0, period_format = 0, no_of_period = 0;
   int r = 1, p = 1;
   double future_value = 0, rate = 0, period = 0, rate_period = 0;
-  double interest = 0, present_value = 0;
+  double interest = 0, present_value = 0, periodic_payment = 0;
 
   display2layermenu("Present Value", "");
 
@@ -59,7 +59,14 @@ void present_value()
 
   displayresult("Interest", interest);
 
-  displayresult("Present Value", present_value);
+  displayresult("Lumsum Present Value", present_value);
+
+  if (period_format == 1 && rate_format == 1)
+  {
+    periodic_payment = present_value / (no_of_period * 12) ;
+    displayresult("Monthly Payment", periodic_payment);
+  }
+
 };
 
 #endif
