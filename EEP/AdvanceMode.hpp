@@ -11,25 +11,60 @@ void adv_mode()
 
     if (advanced_mode == 0)
     {
-        display2layermenu("1: Simple Interest", "2: Future Value");
+        if (adv_sel == 0)
+        {
+            display2layermenu("1: Simple Interest", "2: Future Value");
+            display2layermenu("3: Present Value", "4: Continuous Future Value");
+            display2layermenu("5: Continuous Present Value", "6: Amortized Loan");
+            display2layermenu("7: Mutual Fund", "8: Factorial");
+            display2layermenu("9: Permutation", "10: Combination");
+            display2layermenu("11: Tax", "12: Discount");
 
-        display2layermenu("3: Present Value", "");
+            adv_sel = 1;
+        }
 
-        advanced_mode = round(GET_NUMBER_DECIMAL("Enter Mode: "));
+
+        advanced_mode = GET_NUMBER_DECIMAL("Enter Mode: ");
         reset = 0;
     }
 
-    if(advanced_mode == 1)
+    typedef void (*FunctionPointer)();
+
+    FunctionPointer advanced_functions[] = 
     {
-        simple_interest();
-    }
-    else if(advanced_mode == 2) 
+        simple_interest,
+        future_value,
+        present_value,
+        continuous_future_value,
+        continuous_present_value,
+        amortized_loan,
+        mutual_fund,
+        factorial_func,
+        permutation_func,
+        combination_func,
+        tax,
+        discount
+        //log_user,
+        //natural_log,
+        //exponentiation,
+        //exponential,
+        //degreetoradian,
+        //radiantodegree,
+        //sine_degrees,
+        //cosine_degrees,
+        //tangent_degrees
+    };
+
+    const int num_advanced_functions = sizeof(advanced_functions) / sizeof(advanced_functions[0]);
+
+    if (advanced_mode >= 1 && advanced_mode <= num_advanced_functions) 
     {
-        future_value();
-    }
-    else if(advanced_mode == 3) 
+        advanced_functions[advanced_mode - 1]();
+    } 
+    else 
     {
-        present_value();
+        display2layermenu("Invalid Entry", "");
+        advanced_mode = 0;
     }
 
     advanced_mode = 0;

@@ -13,6 +13,7 @@
 #include "presentvalue.hpp"
 #include "continuous_futurevalue.hpp"
 #include "continuous_presentvalue.hpp"
-
+#include "amortizedloan.hpp"
+#include "mutualfund.hpp"
 
 #endif

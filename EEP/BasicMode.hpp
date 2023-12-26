@@ -38,6 +38,11 @@ void basic_mode(){
       str1 = "";
       str2 = "";
     }
+    else if(key == 'R')
+    {
+      mode = 0;
+      reset = 1;
+    }
     //addition
     else if(key == '+'){
       lcd.print(key);

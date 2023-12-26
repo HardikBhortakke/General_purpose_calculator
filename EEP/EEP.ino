@@ -22,18 +22,22 @@ void loop()
     }
     display2layermenu("MODES:", "");
     display2layermenu("1: Basic", "2: Advanced");
-    mode = round(GET_NUMBER_DECIMAL("Enter Mode: "));
+    mode = GET_NUMBER_DECIMAL("Enter Mode: ");
     reset = 0;
 
   }
-
-  if(mode == 1)
+  else if(mode == 1)
   {
     basic_mode();
   }
-  else if(mode == 2 ) 
+  else if(mode == 2) 
   {
     adv_mode();
+  }
+  else
+  {
+    display2layermenu("Invalid Entry", "");
+    mode = 0;
   }
 
 }

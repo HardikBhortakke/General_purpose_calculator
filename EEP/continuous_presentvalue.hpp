@@ -12,25 +12,17 @@ void continuous_present_value()
 
   display2layermenu("Continuous Compounding", "Present Value");
 
-  display2layermenu("Compounding Period: ", "1: Years");
+  period_format = GET_FORMAT("Compounding Period");
 
-  display2layermenu("2: Months", "3: Days");
-
-  period_format = round(GET_NUMBER_DECIMAL("Enter Period Format"));
-
-  display2layermenu("Rate Period: ", "1: Years");
-
-  display2layermenu("2: Months", "3: Days");
-
-  rate_format = round(GET_NUMBER_DECIMAL("Enter Period Format"));
+  rate_format = GET_FORMAT("Rate Period");
 
   future_value = GET_NUMBER_DECIMAL("Future Value");
   
-  rate = GET_NUMBER_DECIMAL("Rate");
+  rate = GET_NUMBER_DECIMAL("Rate")/100;
 
   rate_period = GET_NUMBER_DECIMAL("Rate Period");
 
-  no_of_period = round(GET_NUMBER_DECIMAL("No of Periods"));
+  no_of_period = GET_NUMBER_DECIMAL("No of Periods");
 
   period = GET_NUMBER_DECIMAL("Compouding Period");
 
@@ -63,7 +55,7 @@ void continuous_present_value()
 
   present_value = future_value / exp((rate / (rate_period * r)) * (no_of_period / (period * p)));
   
-  interest = future_value - interest;
+  interest = future_value - present_value;
 
   displayresult("Interest", interest);
 

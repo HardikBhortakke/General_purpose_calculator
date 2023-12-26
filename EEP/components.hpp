@@ -21,7 +21,7 @@ char keys1[ROWS][COLS] = {
   {'*','0','.','='}
 };
 char keys2[ROWS][COLS] = {
-  {'1','2','3','A'},
+  {'1','2','3','R'},
   {'4','5','6','%'},
   {'7','8','9','/'},
   {'*','0','^','D'}
@@ -35,7 +35,7 @@ Keypad keypad2 = Keypad( makeKeymap(keys2), rowPins, colPins, ROWS, COLS );
 int flag = 0;
 int mode = 0;
 int advanced_mode = 0;
-int reset = 1;
+int reset = 1, adv_sel = 0;
 
 char extra_key(char in)
 {
@@ -99,11 +99,13 @@ void displayresult(String result1, double result2)
       else if(key == '+')
       {
         lcd.clear();
-        mode = 0;
+        adv_sel = 0;
         reset = 2;
+        advanced_mode = 0;
+
         break;
       }
-      else if(key == "*")
+      else if(key == '*')
       {
         lcd.clear();
         reset = 2;
@@ -151,11 +153,12 @@ double GET_NUMBER_DECIMAL(String message)
         else if(key == '+')
         {
           lcd.clear();
-          mode = 0;
+          adv_sel = 0;
           reset = 2;
+          advanced_mode = 0;
           break;
         }
-        else if(key == "*")
+        else if(key == '*')
         {
           lcd.clear();
           reset = 2;
@@ -172,6 +175,7 @@ double GET_NUMBER_DECIMAL(String message)
           lcd.setCursor(0, 1);
           lcd.print(number);
           delay(1000);
+          lcd.clear();
           break;
         }
         else
@@ -188,5 +192,26 @@ double GET_NUMBER_DECIMAL(String message)
   }
   return number; 
 };
+
+double GET_FORMAT(String messagetemp)
+{
+  double period_format_temp = 0;
+
+  display2layermenu(messagetemp, "1: Years");
+  display2layermenu("2: Months", "3: Days");
+  period_format_temp = GET_NUMBER_DECIMAL("Enter Period Format");
+  if (period_format_temp == 1 || period_format_temp == 2 || period_format_temp == 3)
+  {
+  }
+  else
+  {
+    display2layermenu("Invalid Entry", "");
+    advanced_mode = 0;
+    reset = 2;
+  }
+
+  return period_format_temp;
+};
+
 
 #endif

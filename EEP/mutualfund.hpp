@@ -13,15 +13,24 @@ void mutual_fund()
 
   display2layermenu("1: Years", "2: Months");
 
-  period_format = round(GET_NUMBER_DECIMAL("Enter Period Format"));
+  period_format = GET_NUMBER_DECIMAL("Enter Period Format");
+  if (period_format == 1 || period_format == 2)
+  {
+  }
+  else
+  {
+    display2layermenu("Invalid Entry", "");
+    advanced_mode = 0;
+    reset = 2;
+  }
 
   principal = GET_NUMBER_DECIMAL("Principal");
 
-  rate = GET_NUMBER_DECIMAL("Interest Rate per annum");
+  rate = GET_NUMBER_DECIMAL("Interest Rate per annum")/100;
 
-  period = round(GET_NUMBER_DECIMAL("Period"));
+  period = GET_NUMBER_DECIMAL("Period");
 
-  compounding_period = round(GET_NUMBER_DECIMAL("Compounding Period"));
+  compounding_period = GET_NUMBER_DECIMAL("Compounding Period");
 
   periodicpayment = GET_NUMBER_DECIMAL("Periodic Payment");
 

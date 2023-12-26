@@ -11,17 +11,13 @@ void simple_interest()
 
   display2layermenu("Simple Interest", "");
 
-  display2layermenu("1: Years", "2: Months");
-
-  display2layermenu("3: Days", "");  
-
-  period_format = round(GET_NUMBER_DECIMAL("Enter Period Format"));
+  period_format = GET_FORMAT("Period Format");
 
   principal = GET_NUMBER_DECIMAL("Principal");
 
   rate = GET_NUMBER_DECIMAL("Interest Rate");
 
-  period = round(GET_NUMBER_DECIMAL("Period"));
+  period = GET_NUMBER_DECIMAL("Period");
 
   if(period_format == 1)
   {
